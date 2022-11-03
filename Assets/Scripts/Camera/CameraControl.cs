@@ -100,6 +100,7 @@ public class CameraControl : MonoBehaviour
         for (int i = 0; i < players.Length; i++)
         {
             m_Targets[i] = players[i].transform;
+            Debug.Log(m_Targets[i].name + "se agrego este tanque");
         }
     }
     public void SetStartPositionAndSize()

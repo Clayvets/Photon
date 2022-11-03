@@ -1,9 +1,8 @@
 ﻿using Photon.Pun;
 using UnityEngine;
 
-namespace Complete
-{
-    public class PlayerMovement : MonoBehaviourPun
+
+public class PlayerMovement : MonoBehaviourPun
     {
         //public int m_PlayerNumber = 1;              // Used to identify which tank belongs to which player.  This is set by this tank's manager.
         public float m_Speed = 12f;                 // How fast the tank moves forward and back.
@@ -144,7 +143,6 @@ namespace Complete
         {
             Debug.Log(info.Sender.NickName + "Se ha iniciado");
             Debug.Log((string)info.photonView.InstantiationData[0]);
-            GameObject.Find("CameraRig").GetComponent<CameraControl>();
+            GameObject.Find("CameraRig").GetComponent<CameraControl>().SetCameraTargets();
         }
     }
-}
