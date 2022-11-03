@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
 
 namespace Complete
 {
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : MonoBehaviourPun
     {
         //public int m_PlayerNumber = 1;              // Used to identify which tank belongs to which player.  This is set by this tank's manager.
         public float m_Speed = 12f;                 // How fast the tank moves forward and back.
@@ -108,8 +109,12 @@ namespace Complete
         private void FixedUpdate ()
         {
             // Adjust the rigidbodies position and orientation in FixedUpdate.
-            Move ();
-            Turn ();
+            if (photonView.IsMine)
+            {
+                Move ();
+                Turn ();
+            }
+    
         }
 
 
@@ -133,6 +138,13 @@ namespace Complete
 
             // Apply this rotation to the rigidbody's rotation.
             m_Rigidbody.MoveRotation (m_Rigidbody.rotation * turnRotation);
+        }
+
+        public void OnPhotonInstantiate(PhotonMessageInfo info)
+        {
+            Debug.Log(info.Sender.NickName + "Se ha iniciado");
+            Debug.Log((string)info.photonView.InstantiationData[0]);
+            GameObject.Find("CameraRig").GetComponent<CameraControl>();
         }
     }
 }

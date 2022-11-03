@@ -92,7 +92,16 @@ public class CameraControl : MonoBehaviour
         return size;
     }
 
+    public void SetCameraTargets()
+    {
+        var players = GameObject.FindGameObjectsWithTag("Player");
 
+        m_Targets = new Transform[players.Length];
+        for (int i = 0; i < players.Length; i++)
+        {
+            m_Targets[i] = players[i].transform;
+        }
+    }
     public void SetStartPositionAndSize()
     {
         FindAveragePosition();
@@ -101,4 +110,10 @@ public class CameraControl : MonoBehaviour
 
         m_Camera.orthographicSize = FindRequiredSize();
     }
+
+
+
+
+
+
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,11 @@ public class ConnectController : MonoBehaviourPunCallbacks
     [SerializeField]
     private string regionCode = null;
     void Scake()
+    {
+        PhotonNetwork.AutomaticallySyncScene = true;
+    }
+
+    private void Awake()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
     }
@@ -89,12 +95,21 @@ public class ConnectController : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
         {
-            Debug.Log("Sala lista");
-            PhotonNetwork.LoadLevel("Game");
+            Debug.Log("Sala lista");//lo tiene que llamar el master si no no da
+            //PhotonNetwork.LoadLevel("Game");
         }
         
     }
-    
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        Debug.Log(newPlayer.NickName + " Se a unido al cuarto, Player " + PhotonNetwork.CurrentRoom.PlayerCount);
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 2 && PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log("Sala llena*");//lo tiene que llamar el master si no no da
+            PhotonNetwork.LoadLevel("Game");
+        }
+    }
     #endregion
     
 }
