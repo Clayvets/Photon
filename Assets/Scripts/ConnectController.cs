@@ -21,9 +21,9 @@ public class ConnectController : MonoBehaviourPunCallbacks
     private string gameVersion = "1";
     [SerializeField]
     private string regionCode = null;
-    void Start()
+    void Scake()
     {
-        
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
 
     public void SetRegion(int index)
