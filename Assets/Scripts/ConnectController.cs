@@ -5,6 +5,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 
 public enum RegionCodes
@@ -22,6 +23,11 @@ public class ConnectController : MonoBehaviourPunCallbacks
     private string gameVersion = "1";
     [SerializeField]
     private string regionCode = null;
+    [SerializeField]
+    private GameObject panelConnect;
+    [SerializeField]
+    private GameObject panelRoom;
+    
     void Scake()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -68,6 +74,28 @@ public class ConnectController : MonoBehaviourPunCallbacks
         GameObject.Find("Button").GetComponent<Button>().enabled = state;
     }
 
+    void ShowRoomPanel()
+    {
+        GameObject.Find("PanelConnect").SetActive(false);
+        panelRoom.SetActive(true);
+    }
+
+    public void SetColor(int index)
+    {
+        string color = GameObject.Find("DropDownColors").GetComponent<Dropdown>().options[index].text;
+        
+        Debug.Log("Color: " + color);
+
+        var propsToSet = new ExitGames.Client.Photon.Hashtable() { { "color", color } };
+        PhotonNetwork.LocalPlayer.SetCustomProperties(propsToSet);
+    }
+
+    public void SetReady()
+    {
+        var propsToSet = new ExitGames.Client.Photon.Hashtable() { { "ready", true } };
+        PhotonNetwork.LocalPlayer.SetCustomProperties(propsToSet);
+    }
+    
     #region MonoBehaviourPunCallbacks
     
     public override void OnConnectedToMaster()
@@ -92,13 +120,13 @@ public class ConnectController : MonoBehaviourPunCallbacks
     {
         Debug.Log("PUM Basics Tutorial/Launcher: OnJoinedRoom() called by PUM. Now this client is in a room.");
         SetButton(false, "ESPERANDO ANDO a los jugadores");
-        
+
         //PhotonNetwork.LoadLevel("Game"); ////pa no compilar mucho
 
         if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
         {
             Debug.Log("Sala lista");//lo tiene que llamar el master si no no da
-            //PhotonNetwork.LoadLevel("Game");
+            PhotonNetwork.LoadLevel("Game");
         }
         
     }
@@ -110,9 +138,44 @@ public class ConnectController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.CurrentRoom.PlayerCount == 2 && PhotonNetwork.IsMasterClient)
         {
             Debug.Log("Sala llena*");//lo tiene que llamar el master si no no da
-            PhotonNetwork.LoadLevel("Game");
+            //PhotonNetwork.LoadLevel("Game");
+            ShowRoomPanel();
         }
     }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        Debug.Log("OnPlayerPropertiesUpdate");
+        
+        if (changedProps.ContainsKey("color"))
+        {
+            Debug.Log("Color");
+            
+            if (changedProps.ContainsKey("ready"))
+            {
+                Debug.Log("Ready");
+                
+                int playersReady = 0;
+                foreach (var player in PhotonNetwork.CurrentRoom.Players.Values)
+                {
+                    bool ready = (bool)player.CustomProperties["ready"];
+                    Debug.Log(player.NickName + "is ready? ..." + ready);
+
+                    if (ready)
+                    {
+                        playersReady++;
+                        Debug.Log("Cantidad players");
+                    }
+
+                    if (playersReady == PhotonNetwork.CurrentRoom.MaxPlayers)
+                    {
+                        PhotonNetwork.LoadLevel("Game");
+                    }
+                }
+            }
+        }
+    }                                                                              
+
     #endregion
     
 }
