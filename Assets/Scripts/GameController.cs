@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+public class GameController : MonoBehaviourPun
 {
     [SerializeField]
     private GameObject playerPrefab;
@@ -30,10 +30,9 @@ public class GameController : MonoBehaviour
             PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.position, Quaternion.identity, 0, initData);
         }
     }
+    
+    
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
