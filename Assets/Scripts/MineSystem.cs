@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class MineSystem : MonoBehaviourPun
 {
+    [SerializeField] private GameObject mina;
 
     // Update is called once per frame
     void Update()
@@ -20,7 +21,10 @@ public class MineSystem : MonoBehaviourPun
     void SetMine()
     {
         Debug.Log("Colocando una mina");
-        //GameObject.Instantiate()  se usa este... no usar photonview.instantiate NO
+        //se usa este... no usar photonview.instantiate NO
+        
+        GameObject minita = GameObject.Instantiate(mina, this.transform);
+        minita.transform.parent = null;
     }
     
 }

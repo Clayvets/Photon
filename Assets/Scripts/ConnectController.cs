@@ -24,9 +24,9 @@ public class ConnectController : MonoBehaviourPunCallbacks
     [SerializeField]
     private string regionCode = null;
     [SerializeField]
-    private GameObject panelConnect;
+    /*private GameObject panelConnect;
     [SerializeField]
-    private GameObject panelRoom;
+    private GameObject panelRoom;*/
     
     void Scake()
     {
@@ -74,13 +74,13 @@ public class ConnectController : MonoBehaviourPunCallbacks
         GameObject.Find("Button").GetComponent<Button>().enabled = state;
     }
 
-    void ShowRoomPanel()
+    /*void ShowRoomPanel()
     {
         GameObject.Find("PanelConnect").SetActive(false);
         panelRoom.SetActive(true);
-    }
+    }*/
 
-    public void SetColor(int index)
+    /*public void SetColor(int index)
     {
         string color = GameObject.Find("DropDownColors").GetComponent<Dropdown>().options[index].text;
         
@@ -88,13 +88,13 @@ public class ConnectController : MonoBehaviourPunCallbacks
 
         var propsToSet = new ExitGames.Client.Photon.Hashtable() { { "color", color } };
         PhotonNetwork.LocalPlayer.SetCustomProperties(propsToSet);
-    }
+    }*/
 
-    public void SetReady()
+    /* void SetReady()
     {
         var propsToSet = new ExitGames.Client.Photon.Hashtable() { { "ready", true } };
         PhotonNetwork.LocalPlayer.SetCustomProperties(propsToSet);
-    }
+    }*/
     
     #region MonoBehaviourPunCallbacks
     
@@ -126,7 +126,7 @@ public class ConnectController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
         {
             Debug.Log("Sala lista");//lo tiene que llamar el master si no no da
-            PhotonNetwork.LoadLevel("Game");
+            //PhotonNetwork.LoadLevel("Game");//ESTO SE COMENTA DESPUES
         }
         
     }
@@ -138,12 +138,12 @@ public class ConnectController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.CurrentRoom.PlayerCount == 2 && PhotonNetwork.IsMasterClient)
         {
             Debug.Log("Sala llena*");//lo tiene que llamar el master si no no da
-            //PhotonNetwork.LoadLevel("Game");
-            ShowRoomPanel();
+            PhotonNetwork.LoadLevel("Game");
+            /*ShowRoomPanel();*/
         }
     }
 
-    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    /*public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
         Debug.Log("OnPlayerPropertiesUpdate");
         
@@ -174,7 +174,7 @@ public class ConnectController : MonoBehaviourPunCallbacks
                 }
             }
         }
-    }                                                                              
+    }  */                                                                            
 
     #endregion
     
