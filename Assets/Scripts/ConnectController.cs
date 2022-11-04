@@ -92,6 +92,8 @@ public class ConnectController : MonoBehaviourPunCallbacks
     {
         Debug.Log("PUM Basics Tutorial/Launcher: OnJoinedRoom() called by PUM. Now this client is in a room.");
         SetButton(false, "ESPERANDO ANDO a los jugadores");
+        
+        //PhotonNetwork.LoadLevel("Game"); ////pa no compilar mucho
 
         if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
         {
@@ -104,6 +106,7 @@ public class ConnectController : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log(newPlayer.NickName + " Se a unido al cuarto, Player " + PhotonNetwork.CurrentRoom.PlayerCount);
+        
         if (PhotonNetwork.CurrentRoom.PlayerCount == 2 && PhotonNetwork.IsMasterClient)
         {
             Debug.Log("Sala llena*");//lo tiene que llamar el master si no no da

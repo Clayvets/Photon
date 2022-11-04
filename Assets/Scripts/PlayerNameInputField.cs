@@ -13,6 +13,7 @@ public class PlayerNameInputField : MonoBehaviour
     {
         string defaultName = string.Empty;
         InputField _inputField = this.GetComponent<InputField>();
+        
         if (_inputField != null)
         {
             if (PlayerPrefs.HasKey(playerNamePrefKey))
