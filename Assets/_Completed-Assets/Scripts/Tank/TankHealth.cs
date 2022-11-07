@@ -31,6 +31,8 @@ namespace Complete
 
             // Disable the prefab so it can be activated when it's required.
             m_ExplosionParticles.gameObject.SetActive (false);
+
+            InvokeRepeating("SetHealthUI", 5f, 5f);
         }
 
 
@@ -92,7 +94,6 @@ namespace Complete
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
-            //TODO: sync health 
 
             if (stream.IsWriting)
             {

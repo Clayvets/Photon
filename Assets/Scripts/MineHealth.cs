@@ -24,7 +24,7 @@ public class MineHealth : MonoBehaviour
         { // ... and find their rigidbody.
 
             Debug.Log("Cambiando la vida del jugador");
-            TankHealth targetHealth = other.GetComponent<TankHealth>();
+            Complete.TankHealth targetHealth = other.GetComponent<Complete.TankHealth>();
             // If there is no TankHealth script attached to the gameobject, go on to the next collider.
 
 
@@ -32,7 +32,7 @@ public class MineHealth : MonoBehaviour
 
             // Deal this damage to the tank.
             targetHealth.TakeDamage(healthMod);
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
     }
 }
