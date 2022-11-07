@@ -94,7 +94,7 @@ namespace Complete
         {
             //TODO: sync health 
 
-            if (stream.IsReading)
+            if (stream.IsWriting)
             {
                 stream.SendNext(m_CurrentHealth);
             }
