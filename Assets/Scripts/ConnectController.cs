@@ -24,9 +24,13 @@ public class ConnectController : MonoBehaviourPunCallbacks
     [SerializeField]
     private string regionCode = null;
     [SerializeField]
-    /*private GameObject panelConnect;
+    private GameObject panelConnect;
     [SerializeField]
-    private GameObject panelRoom;*/
+    private GameObject panelRoom;
+
+    private bool selectedColor = false;
+
+    [SerializeField] private Text nick;
     
     void Scake()
     {
@@ -57,30 +61,32 @@ public class ConnectController : MonoBehaviourPunCallbacks
     
     public void Connect()
     {
+        Debug.Log("0");
         if (PhotonNetwork.IsConnected)
         {
+            Debug.Log("1");
             PhotonNetwork.JoinRandomRoom();
+
         }
         else
         {
+            Debug.Log("2");
+            nick.text = PhotonNetwork.NickName;
             PhotonNetwork.ConnectUsingSettings();
             PhotonNetwork.GameVersion = gameVersion;
+            panelRoom.SetActive(true);
+            panelConnect.SetActive(false);
+            
         }
     }
 
     void SetButton(bool state, string msg)
     {
-        GameObject.Find("Button").GetComponentInChildren<Text>().text = msg;
-        GameObject.Find("Button").GetComponent<Button>().enabled = state;
+       // GameObject.Find("Button").GetComponentInChildren<Text>().text = msg;
+        //GameObject.Find("Button").GetComponent<Button>().enabled = state;
     }
-
-    /*void ShowRoomPanel()
-    {
-        GameObject.Find("PanelConnect").SetActive(false);
-        panelRoom.SetActive(true);
-    }*/
-
-    /*public void SetColor(int index)
+    
+    public void SetColor(int index)
     {
         string color = GameObject.Find("DropDownColors").GetComponent<Dropdown>().options[index].text;
         
@@ -88,7 +94,7 @@ public class ConnectController : MonoBehaviourPunCallbacks
 
         var propsToSet = new ExitGames.Client.Photon.Hashtable() { { "color", color } };
         PhotonNetwork.LocalPlayer.SetCustomProperties(propsToSet);
-    }*/
+    }
 
     /* void SetReady()
     {
