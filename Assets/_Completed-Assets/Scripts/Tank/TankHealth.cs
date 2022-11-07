@@ -94,15 +94,17 @@ namespace Complete
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
-
+            
             if (stream.IsWriting)
             {
                 stream.SendNext(m_CurrentHealth);
+            
             }
             else
             {   
                 //reading
                 m_CurrentHealth = (float) stream.ReceiveNext();
+                SetHealthUI ();
             }
         }
     }
