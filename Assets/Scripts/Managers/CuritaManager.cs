@@ -13,7 +13,7 @@ public class CuritaManager : MonoBehaviourPun
     private float spawnTimeCurita;
     void Update()
     {
-        if (photonView.IsMine && spawnTimeCurita > 10)
+        if (photonView.IsMine && spawnTimeCurita > 30)
         {
             photonView.RPC("SetCura", RpcTarget.AllBuffered);
             spawnTimeCurita = 0;
