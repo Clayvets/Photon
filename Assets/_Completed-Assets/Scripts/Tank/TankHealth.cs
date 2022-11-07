@@ -73,6 +73,7 @@ namespace Complete
         }
 
 
+        [PunRPC]
         private void OnDeath ()
         {
             // Set the flag so that this function is only called once.
