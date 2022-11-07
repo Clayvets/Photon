@@ -17,18 +17,14 @@ public class MineHealth : MonoBehaviour
     }
     private void OnTriggerEnter (Collider other)
     {
+        Debug.Log("Collicion con la cura o mina");
         // Collect all the colliders in a sphere from the shell's current position to a radius of the explosion radius.
         // Go through all the colliders...
-        if (other.GetComponent<TankHealth>())
+        if (other.transform.gameObject.GetComponent<TankHealth>())
         { // ... and find their rigidbody.
-            Rigidbody targetRigidbody = GetComponent<Rigidbody>();
 
-            // If they don't have a rigidbody, go on to the next collider.
-            // Add an explosion force.
-
-            // Find the TankHealth script associated with the rigidbody.
-            TankHealth targetHealth = targetRigidbody.GetComponent<TankHealth>();
-
+            Debug.Log("Cambiando la vida del jugador");
+            TankHealth targetHealth = other.transform.gameObject.GetComponent<TankHealth>();
             // If there is no TankHealth script attached to the gameobject, go on to the next collider.
 
 
