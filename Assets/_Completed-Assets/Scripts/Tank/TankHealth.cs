@@ -44,7 +44,7 @@ namespace Complete
             SetHealthUI();
         }
 
-
+        
         public void TakeDamage (float amount)
         {
             // Reduce current health by the amount of damage done.
@@ -101,7 +101,7 @@ namespace Complete
             else
             {   
                 //reading
-                m_CurrentHealth = (int) stream.ReceiveNext();
+                m_CurrentHealth = (float) stream.ReceiveNext();
             }
         }
     }
